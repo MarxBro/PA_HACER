@@ -172,7 +172,64 @@ sub agregar_tarea {
 }
 
 sub LISTAR_LARGO {
-    Listar_rapido();
+    Jerarquia();
+    print "\n", "-" x 74, "\n";
+    print sprintf( "\| %-4s ", "Pr." ), sprintf( "\| %-15s ", "Categoria" ),
+      sprintf( "\| %-35s ",  "TAREAS - Descripcion" ),
+      sprintf( "\| %-7s \|", "IDs" );
+    print "\n", "-" x 74, "\n";
+    foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
+        for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
+            #print '| ' . "$QQ{$id_pr}[$el]", " |";
+            if ( $el == 0 ) {
+                #Prioridad
+                my $prior         = $QQ{$id_pr}[$el];
+                my $prior_colorin = '';
+                if ( $prior >= 8 ) {
+                    $prior_colorin = "bright_red on_black";
+                }
+                elsif ( $prior >= 5 ) {
+                    $prior_colorin = "bright_yellow on_black";
+                }
+                elsif ( $prior >= 3 ) {
+                    $prior_colorin = "bold on_black";
+                }
+                else {
+                    $prior_colorin = "on_black";
+                }
+
+                print '|',
+                  colored(
+                    sprintf( " %-4d ", "$QQ{$id_pr}[$el]" ),
+                    $prior_colorin
+                  ),
+                  '|';
+            }
+            elsif ( $el == 1 ) {
+
+                #Categoria
+                print colored( sprintf( " %-15s ", "$QQ{$id_pr}[$el]" ),
+                    'bright_green  on_black' ),
+                  '|';
+            }
+            elsif ( $el == 2 ) {
+
+                #TAREA
+                print colored( sprintf( " %-35s ", "$QQ{$id_pr}[$el]" ),
+                    'bold  on_black' ),
+                  '|';
+            }
+            elsif ( $el == 3 ) {
+                print colored( sprintf( " %-7d ", "$QQ{$id_pr}[$el]" ),
+                    'bright_green on_black' ),
+                  '|';
+            }
+            else {
+                say "error!";
+            }
+        }
+        print "\n", "-" x 74, "\n";
+    }
 }
 
 sub Listar_rapido {
@@ -273,8 +330,6 @@ sub Exportartar {
 '<tr> <th>ID</th> <th>CATEGORIA</th> <th>PRIORIDAD</th> <th>TAREA</th> </tr> ';
     my $HTMLIN = $HTML_header . $HTML_header_tabla;
 
-    #<tr> -> Row
-    #<td>Pepito</td> -> Data
     foreach my $lns_pa_exp (@lns_todo_file) {
         $HTMLIN .= '<tr>' . "\n";
         my @campos = split( / [\|]{3} /, $lns_pa_exp );
