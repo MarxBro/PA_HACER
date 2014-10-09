@@ -33,7 +33,7 @@ el parametro B<l> muestra una lista tipo tabla.
 
 PA_HACER -t Hola -c Prueba -p 1
 
-PA_HACER -l
+PA_HACER 
 
 PA_HACER -X
 
@@ -51,9 +51,9 @@ PA_HACER -B Prueba
 
 =item B<-X>    Exportar la lista de tareas a HTML. [ excluyente ]
 
-=item B<-l>    Listar bonito... o algo asi.
-
 =item B<-h>    (Esta) Ayuda.
+
+=item B<-n>    NUEVO archivo TODO.txt: Borra el viejo, cuidadito...
 
 =item B<-d>    DEBUGGING FLAG!
 
@@ -61,7 +61,7 @@ PA_HACER -B Prueba
 
 =cut
 
-getopts( 't:c:p:B:Xlhd', \%opts );
+getopts( 't:c:p:B:Xnhd', \%opts );
 if ( $opts{d} ) { $debug++ }
 
 # Variables necesarias
@@ -84,9 +84,9 @@ my $t_banana = strftime( "%d_%B_%Y_%H_%M_%S", localtime( time() ) );
 if ( $opts{h} ) {
     ayudas();
 }
-elsif ( $opts{l} ) {
-    LISTAR_LARGO();
-}
+elsif ( $opts{n} ) {
+    Nuevo_archivo_input();
+}    
 elsif ( $opts{t} ) {
     agregar_tarea();
 }
@@ -97,7 +97,7 @@ elsif ( $opts{X} ) {
     Exportartar();
 }
 else {
-    Listar_rapido();
+    LISTAR_LARGO();
 }
 exit;
 
@@ -110,12 +110,10 @@ sub ayudas {
 }
 
 sub Existencia {
-
     # chequea que el arhcivo input exista, sino lo crea.
-    unless ( ( -e $archivo_input )
-        && ( ( -s $archivo_input ) && ( -f $archivo_input ) ) )
-    {
+    unless ( -e $archivo_input ){
         `touch $archivo_input`;
+        chmod 755, $archivo_input;
     }
 }
 
@@ -174,17 +172,16 @@ sub agregar_tarea {
 
 sub LISTAR_LARGO {
     Jerarquia();
-    print "\n", "-" x 74, "\n";
+    print "\n", "-" x 84, "\n";
     print sprintf( "\| %-4s ", "Pr." ), sprintf( "\| %-15s ", "Categoria" ),
-      sprintf( "\| %-35s ",  "TAREAS - Descripcion" ),
+      sprintf( "\| %-45s ",  "TAREAS - Descripcion" ),
       sprintf( "\| %-7s \|", "IDs" );
-    print "\n", "-" x 74, "\n";
+    print "\n", "-" x 84, "\n";
     foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
         for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
 
             #print '| ' . "$QQ{$id_pr}[$el]", " |";
             if ( $el == 0 ) {
-
                 #Prioridad
                 my $prior         = $QQ{$id_pr}[$el];
                 my $prior_colorin = '';
@@ -200,7 +197,6 @@ sub LISTAR_LARGO {
                 else {
                     $prior_colorin = "on_black";
                 }
-
                 print '|',
                   colored(
                     sprintf( " %-4d ", "$QQ{$id_pr}[$el]" ),
@@ -209,16 +205,14 @@ sub LISTAR_LARGO {
                   '|';
             }
             elsif ( $el == 1 ) {
-
                 #Categoria
                 print colored( sprintf( " %-15s ", "$QQ{$id_pr}[$el]" ),
                     'bright_green  on_black' ),
                   '|';
             }
             elsif ( $el == 2 ) {
-
                 #TAREA
-                print colored( sprintf( " %-35s ", "$QQ{$id_pr}[$el]" ),
+                print colored( sprintf( " %-45s ", "$QQ{$id_pr}[$el]" ),
                     'bold  on_black' ),
                   '|';
             }
@@ -231,45 +225,7 @@ sub LISTAR_LARGO {
                 say "error!";
             }
         }
-        print "\n", "-" x 74, "\n";
-    }
-}
-
-sub Listar_rapido {
-    Jerarquia();    # Todas las tareas estan en %QQ.
-    print "\n", "-" x 74, "\n";
-    print sprintf( "\| %-4s ", "Pr." ), sprintf( "\| %-15s ", "Categoria" ),
-      sprintf( "\| %-35s ",  "TAREAS - Descripcion" ),
-      sprintf( "\| %-7s \|", "IDs" );
-    print "\n", "-" x 74, "\n";
-    foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
-        for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
-
-            #print '| ' . "$QQ{$id_pr}[$el]", " |";
-            if ( $el == 0 ) {
-
-                #Prioridad
-                printf( "\| %-4d ", "$QQ{$id_pr}[$el]" );
-            }
-            elsif ( $el == 1 ) {
-
-                #Categoria
-                printf( "\| %-15s ", "$QQ{$id_pr}[$el]" );
-            }
-            elsif ( $el == 2 ) {
-
-                #TAREA
-                print q$|$, colored( sprintf( " %-35s ", "$QQ{$id_pr}[$el]" ),
-                    "bright_yellow" );
-            }
-            elsif ( $el == 3 ) {
-                printf( "\| %-7d \|", "$QQ{$id_pr}[$el]" );
-            }
-            else {
-                say "error!";
-            }
-        }
-        print "\n", "-" x 74, "\n";
+        print "\n", "-" x 84, "\n";
     }
 }
 
@@ -353,6 +309,16 @@ sub Exportartar {
     say $nombre_archivo_a_exportar if $debug;
     write_file( "$nombre_archivo_a_exportar", $HTMLIN );
 }
+
+sub Nuevo_archivo_input {
+    say "Borrando viejo archivo $archivo_input ...";
+    write_file($archivo_input,''); # Ja!
+    say "Listo, creando uno nuevo...";
+    Existencia();
+    say "---";
+}
+
+
 
 =pod
 
