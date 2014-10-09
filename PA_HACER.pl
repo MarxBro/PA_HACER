@@ -65,7 +65,8 @@ getopts( 't:c:p:B:Xlhd', \%opts );
 if ( $opts{d} ) { $debug++ }
 
 # Variables necesarias
-my $archivo_input = "TODO.txt";
+my $home          = $ENV{"HOME"};
+my $archivo_input = $home . '/' . "TODO.txt";
 Existencia();
 my @lns_todo_file = read_file("$archivo_input");
 
@@ -180,8 +181,10 @@ sub LISTAR_LARGO {
     print "\n", "-" x 74, "\n";
     foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
         for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
+
             #print '| ' . "$QQ{$id_pr}[$el]", " |";
             if ( $el == 0 ) {
+
                 #Prioridad
                 my $prior         = $QQ{$id_pr}[$el];
                 my $prior_colorin = '';
@@ -235,6 +238,10 @@ sub LISTAR_LARGO {
 sub Listar_rapido {
     Jerarquia();    # Todas las tareas estan en %QQ.
     print "\n", "-" x 74, "\n";
+    print sprintf( "\| %-4s ", "Pr." ), sprintf( "\| %-15s ", "Categoria" ),
+      sprintf( "\| %-35s ",  "TAREAS - Descripcion" ),
+      sprintf( "\| %-7s \|", "IDs" );
+    print "\n", "-" x 74, "\n";
     foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
         for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
 
@@ -252,7 +259,8 @@ sub Listar_rapido {
             elsif ( $el == 2 ) {
 
                 #TAREA
-                printf( "\| %-35s ", "$QQ{$id_pr}[$el]" );
+                print q$|$, colored( sprintf( " %-35s ", "$QQ{$id_pr}[$el]" ),
+                    "bright_yellow" );
             }
             elsif ( $el == 3 ) {
                 printf( "\| %-7d \|", "$QQ{$id_pr}[$el]" );
@@ -354,7 +362,7 @@ Todo lo que este programita hace esta en un txt (asi que a editar antes de progr
 
 =head2 Bugs y epilepsia.
 
-Utiliza como separador de campos al string ' ||| ', asi que evitarlo en la descripcion de las tereas...
+Utiliza como separador de campos al string ' ||| ', asi que evitarlo en la descripcion de las tareas...
 Nadie es tan extravagante, no? Ja!
 
 =head1 Autor y Licencia.
