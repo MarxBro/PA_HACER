@@ -67,7 +67,12 @@ if ( $opts{d} ) { $debug++ }
 # Variables necesarias
 my $home          = $ENV{"HOME"};
 my $archivo_input = $home . '/' . "TODO.txt";
+my $existia       = 1;
 Existencia();
+my $msg_archivo_recien_creado = "El archivo TODO.txt fue recreado.... 
+        No hay tareas pendientes. FIN.";
+my $msg_archivo_vacio = "No hay tareas pendientes. 
+    FIN.";
 my @lns_todo_file = read_file("$archivo_input");
 
 my $CATEGORIA_defaut  = 'Etc.';
@@ -86,7 +91,7 @@ if ( $opts{h} ) {
 }
 elsif ( $opts{n} ) {
     Nuevo_archivo_input();
-}    
+}
 elsif ( $opts{t} ) {
     agregar_tarea();
 }
@@ -97,7 +102,17 @@ elsif ( $opts{X} ) {
     Exportartar();
 }
 else {
-    LISTAR_LARGO();
+    if ($existia) {
+        if ( -z $archivo_input ) {
+            say $msg_archivo_vacio;
+        }
+        else {
+            LISTAR_LARGO();
+        }
+    }
+    else {
+        say $msg_archivo_recien_creado;
+    }
 }
 exit;
 
@@ -110,8 +125,10 @@ sub ayudas {
 }
 
 sub Existencia {
+
     # chequea que el arhcivo input exista, sino lo crea.
-    unless ( -e $archivo_input ){
+    unless ( -e $archivo_input ) {
+        $existia--;
         `touch $archivo_input`;
         chmod 755, $archivo_input;
     }
@@ -182,6 +199,7 @@ sub LISTAR_LARGO {
 
             #print '| ' . "$QQ{$id_pr}[$el]", " |";
             if ( $el == 0 ) {
+
                 #Prioridad
                 my $prior         = $QQ{$id_pr}[$el];
                 my $prior_colorin = '';
@@ -205,12 +223,14 @@ sub LISTAR_LARGO {
                   '|';
             }
             elsif ( $el == 1 ) {
+
                 #Categoria
                 print colored( sprintf( " %-15s ", "$QQ{$id_pr}[$el]" ),
                     'bright_green  on_black' ),
                   '|';
             }
             elsif ( $el == 2 ) {
+
                 #TAREA
                 print colored( sprintf( " %-45s ", "$QQ{$id_pr}[$el]" ),
                     'bold  on_black' ),
@@ -312,13 +332,11 @@ sub Exportartar {
 
 sub Nuevo_archivo_input {
     say "Borrando viejo archivo $archivo_input ...";
-    write_file($archivo_input,''); # Ja!
+    write_file( $archivo_input, '' );    # Ja!
     say "Listo, creando uno nuevo...";
     Existencia();
     say "---";
 }
-
-
 
 =pod
 
