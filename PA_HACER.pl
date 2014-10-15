@@ -94,6 +94,8 @@ elsif ( $opts{n} ) {
 }
 elsif ( $opts{t} ) {
     agregar_tarea();
+# Mostrar la lista despuéde insertar la tarea.
+    LISTAR_LARGO();
 }
 elsif ( $opts{B} ) {
     Borrar_tarea();
