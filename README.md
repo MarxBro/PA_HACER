@@ -65,7 +65,7 @@ para agregar tareas (ver el ejemplo abajo).
 
 ![](ejemplo.jpg?raw=true)
 
-Tambien es una buena idea agregarlo al startup del shell; en mi caso particualr esta despues de fortunes.
+Tambien es una buena idea agregarlo al startup del shell; en mi caso particular esta despues de fortune.
 
 ## Bugs conocidos
 
