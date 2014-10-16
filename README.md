@@ -1,11 +1,10 @@
 #PA_HACER
 
 Programita para administrar ideas, cosas para hacer y huevadas similares ("tareas"), desde la consola.
-
 Permite agregar, agrupar en categorias, borrar (por categorias o por IDs), exportar y no mucho mas...
 
-Todo va a un archivo de texto llamado "TODO.txt", el $HOME del usuario (quien obviamente usa Linux o algo
-por el estilo).
+Todas las tareas van a parar al $HOME del usuario (quien obviamente usa Linux o algo
+por el estilo) dentro de un archivo llamado -no muy originalmente- *TODO.txt*.
 
 ## Forma de uso
 
