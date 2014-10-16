@@ -14,14 +14,14 @@ Este programa necesita estos componentes de Perl:
 * Term::ANSIColor
 * File::Slurp
 
-Para instalaras, yo recomendaria cpanplus:
+Para instalarlos con cpanplus:
 
 ```bash
 cpanp i Term::ANSIColor File::Slurp
 ```
 
 Ademas necesita:
-* strict, autodie y say que pertence a features. [core]
+* strict, autodie y "say" que pertence a features. [core]
 * Getopt::Std [core]
 * Pod::Usage [core]
 * "strftime" de POSIX [core]
@@ -49,6 +49,7 @@ Como no hace mucho y el uncio que usa este "ekeko multitasking" soy yo, ninguno 
 * Ordenar las tareas por Prioridad, en vez de usar el ID.
 * Mejorar la salida, permitiendo descripciones mas largas.
 * [TAL VEZ] Agregar fechas, a.k.a "deathlines". 
+* [TAL VEZ] Un make que copie el script a /usr/local/bin y haga un manpage al path. Es facil pero me da mucha ~~~paja~~~  pereza. 
 * [EN UNA DE ESAS] Mejorar el css del HTML que exporta.
 * [EN UNA DE ESAS SI ME RE PINTA] agregar sincronizacion ftp.
 * [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
