@@ -11,7 +11,7 @@ por el estilo) dentro de un archivo llamado -no muy originalmente- *TODO.txt*.
 No tiene mucho misterio y esta documentado -mas o menos- en una manpage y en el script mismo:
 
 ```bash
-man T || /PA_HACER.pl -h
+man T || PA_HACER.pl -h
 ```
 
 ## Dependencias
