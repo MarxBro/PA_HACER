@@ -41,7 +41,9 @@ Tambien es una buena idea agregarlo al startup del shell; en mi caso particualr 
 
 ## Bugs conocidos
 
-Como no hace mucho y el uncio que usa este "ekeko multitasking" soy yo, ninguno todavia.
+Como el unico que usa este "ekeko multitasking" soy yo, ninguno todavia.
+
+A este archivo le faltan acentos.
 
 ## TODO
 
@@ -49,9 +51,9 @@ Como no hace mucho y el uncio que usa este "ekeko multitasking" soy yo, ninguno 
 * Ordenar las tareas por Prioridad, en vez de usar el ID.
 * Mejorar la salida, permitiendo descripciones mas largas.
 * [TAL VEZ] Agregar fechas, a.k.a "deathlines". 
-* [TAL VEZ] Un make que copie el script a /usr/local/bin y haga un manpage al path. Es facil pero me da mucha ~~~paja~~~  pereza. 
+* [TAL VEZ] Un make que copie el script a /usr/local/bin y haga un manpage al path. Es facil pero me da mucha ~~paja~~  pereza. 
 * [EN UNA DE ESAS] Mejorar el css del HTML que exporta.
-* [EN UNA DE ESAS SI ME RE PINTA] agregar sincronizacion ftp.
+* [EN UNA DE ESAS && SI ME RE PINTA] agregar sincronizacion ftp.
 * [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
 
 ## Etc
