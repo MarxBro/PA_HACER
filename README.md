@@ -79,7 +79,6 @@ Como el unico que usa este "ekeko multitasking" soy yo, ninguno todavia.
 - Ordenar las tareas por Prioridad, en vez de usar el ID.
 - Mejorar la salida, permitiendo descripciones mas largas.
 - [TAL VEZ] Agregar fechas, a.k.a "deathlines". 
-- ~~ Un make que copie el script a /usr/local/bin y haga un manpage al path. ~~
 - [EN UNA DE ESAS] Mejorar el css del HTML que exporta.
 - [EN UNA DE ESAS && SI ME RE PINTA] agregar sincronizacion ftp.
 - [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
