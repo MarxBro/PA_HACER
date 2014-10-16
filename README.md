@@ -9,10 +9,10 @@ por el estilo).
 
 ## Forma de uso
 
-Ver la documentacion con
+No tiene mucho misterio y esta documentado -mas o menos- en una manpage y en el script mismo:
 
 ```bash
-./PA_HACER.pl -h
+man T || /PA_HACER.pl -h
 ```
 
 ## Dependencias
@@ -36,7 +36,17 @@ Ademas necesita:
 
 ## Instalacion
 
-Alcanza con copiar el archivo .pl en alguna carpeta del $PATH
+La forma mas feliz es utilizando el _make_ :
+
+```bash
+make
+```
+
+que se encarga de todo.
+
+Sin embargo, alcanza con copiar el archivo PA_HACER.pl en alguna carpeta del $PATH.
+
+## Customizar la cosa
 
 Puede ser una buena idea agregar algunos alias a la configuracion de shell, para facil acceso.
 
@@ -51,7 +61,7 @@ Entonces despues alcanza con escrbir **T** en la terminal para ver la lista, y c
 t "Documentar en github" -c TODO_LIST -p 2
 ```
 
-para agregar tareas.
+para agregar tareas (ver el ejemplo abajo).
 
 ![](ejemplo.jpg?raw=true)
 
@@ -69,7 +79,7 @@ Como el unico que usa este "ekeko multitasking" soy yo, ninguno todavia.
 - Ordenar las tareas por Prioridad, en vez de usar el ID.
 - Mejorar la salida, permitiendo descripciones mas largas.
 - [TAL VEZ] Agregar fechas, a.k.a "deathlines". 
-- [TAL VEZ] Un make que copie el script a /usr/local/bin y haga un manpage al path. (Es facil pero me da mucha ~~paja~~  pereza.)
+- ~~ Un make que copie el script a /usr/local/bin y haga un manpage al path. ~~
 - [EN UNA DE ESAS] Mejorar el css del HTML que exporta.
 - [EN UNA DE ESAS && SI ME RE PINTA] agregar sincronizacion ftp.
 - [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
