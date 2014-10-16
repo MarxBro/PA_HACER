@@ -53,7 +53,7 @@ t "Documentar en github" -c TODO_LIST -p 2
 
 para agregar tareas.
 
-[[ejemplo.jpg]]
+![](ejemplo.jpg?raw=true)
 
 Tambien es una buena idea agregarlo al startup del shell; en mi caso particualr esta despues de fortunes.
 
