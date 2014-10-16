@@ -56,8 +56,13 @@ A este archivo le faltan acentos.
 * [EN UNA DE ESAS && SI ME RE PINTA] agregar sincronizacion ftp.
 * [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
 
+## Licencia.
+
+WTFPL.
+
 ## Etc
 
 Hay muchos programas como este, muy chetos y bien hechos; pero este es mio... 
 
 Zaijian.
+
