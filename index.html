@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Pa_hacer by MarxBro</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Pa_hacer</h1>
+        <h2>TODO list - PA_HACER</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/MarxBro/PA_HACER/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/MarxBro/PA_HACER/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/MarxBro/PA_HACER" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="pa_hacer" class="anchor" href="#pa_hacer"><span class="octicon octicon-link"></span></a>PA_HACER</h1>
+
+<p>Programita para administrar ideas, cosas para hacer y huevadas similares ("tareas"), desde la consola.
+Permite agregar, agrupar en categorias, borrar (por categorias o por IDs), exportar y no mucho mas...</p>
+
+<p>Todas las tareas van a parar al $HOME del usuario (quien obviamente usa Linux o algo
+por el estilo) dentro de un archivo llamado -no muy originalmente- <em>TODO.txt</em>.</p>
+
+<h2>
+<a name="forma-de-uso" class="anchor" href="#forma-de-uso"><span class="octicon octicon-link"></span></a>Forma de uso</h2>
+
+<p>No tiene mucho misterio y esta documentado -mas o menos- en una manpage y en el script mismo:</p>
+
+<div class="highlight highlight-bash"><pre>man T <span class="o">||</span> PA_HACER.pl -h
+</pre></div>
+
+<h2>
+<a name="dependencias" class="anchor" href="#dependencias"><span class="octicon octicon-link"></span></a>Dependencias</h2>
+
+<p>Este programa necesita estos componentes de Perl:</p>
+
+<ul>
+<li>Term::ANSIColor</li>
+<li>File::Slurp</li>
+</ul>
+
+<p>Para instalarlos con cpanplus:</p>
+
+<div class="highlight highlight-bash"><pre>cpanp i Term::ANSIColor File::Slurp
+</pre></div>
+
+<p>Ademas necesita:</p>
+
+<ul>
+<li>strict, autodie y "say" que pertence a features. [core]</li>
+<li>Getopt::Std [core]</li>
+<li>Pod::Usage [core]</li>
+<li>"strftime" de POSIX [core]</li>
+</ul>
+
+<h2>
+<a name="instalacion" class="anchor" href="#instalacion"><span class="octicon octicon-link"></span></a>Instalacion</h2>
+
+<p>La forma mas feliz es utilizando el <em>make</em> :</p>
+
+<div class="highlight highlight-bash"><pre>make
+</pre></div>
+
+<p>que se encarga de todo.</p>
+
+<p>Sin embargo, alcanza con copiar el archivo PA_HACER.pl en alguna carpeta del $PATH.</p>
+
+<h2>
+<a name="customizar-la-cosa" class="anchor" href="#customizar-la-cosa"><span class="octicon octicon-link"></span></a>Customizar la cosa</h2>
+
+<p>Puede ser una buena idea agregar algunos alias a la configuracion de shell, para facil acceso.</p>
+
+<div class="highlight highlight-bash"><pre><span class="nb">alias </span><span class="nv">T</span><span class="o">=</span><span class="s2">"PA_HACER.pl"</span>
+<span class="nb">alias </span><span class="nv">t</span><span class="o">=</span><span class="s2">"PA_HACER.pl -t"</span>
+</pre></div>
+
+<p>Entonces despues alcanza con escrbir <strong>T</strong> en la terminal para ver la lista, y con algo asi:</p>
+
+<div class="highlight highlight-bash"><pre>t <span class="s2">"Documentar en github"</span> -c TODO_LIST -p 2
+</pre></div>
+
+<p>para agregar tareas (ver el ejemplo abajo).</p>
+
+<p><img src="ejemplo.jpg?raw=true" alt=""></p>
+
+<p>Tambien es una buena idea agregarlo al startup del shell; en mi caso particular esta despues de fortune.</p>
+
+<h2>
+<a name="bugs-conocidos" class="anchor" href="#bugs-conocidos"><span class="octicon octicon-link"></span></a>Bugs conocidos</h2>
+
+<p>Como el unico que usa este "ekeko multitasking" soy yo, ninguno todavia.</p>
+
+<h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>Poner acentos en este archivo...</li>
+<li>Agregar <em>Forma de Uso</em>.</li>
+<li>Funcion para cambiar la prioridad de las tareas agregadas.</li>
+<li>Ordenar las tareas por Prioridad, en vez de usar el ID.</li>
+<li>Mejorar la salida, permitiendo descripciones mas largas.</li>
+<li>[TAL VEZ] Agregar fechas, a.k.a "deathlines". </li>
+<li>[EN UNA DE ESAS] Mejorar el css del HTML que exporta.</li>
+<li>[EN UNA DE ESAS &amp;&amp; SI ME RE PINTA] agregar sincronizacion ftp.</li>
+<li>[SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.</li>
+</ul>
+
+<h2>
+<a name="licencia" class="anchor" href="#licencia"><span class="octicon octicon-link"></span></a>Licencia.</h2>
+
+<p>WTFPL.</p>
+
+<h2>
+<a name="etc" class="anchor" href="#etc"><span class="octicon octicon-link"></span></a>Etc</h2>
+
+<p>Hay muchos programas como este, muy chetos y bien hechos; pero este es mio... </p>
+
+<p>Zaijian.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
