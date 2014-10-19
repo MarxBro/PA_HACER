@@ -85,8 +85,6 @@ Como el unico que usa este "ekeko multitasking" soy yo, ninguno todavia.
 - [TAL VEZ] Agregar fechas, a.k.a "deathlines". 
 - [EN UNA DE ESAS] Mejorar el css del HTML que exporta.
 - [EN UNA DE ESAS && SI ME RE PINTA] agregar sincronizacion ftp.
-- [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
-~~Funcion para cambiar la prioridad de las tareas agregadas.~~
 
 ## Licencia.
 
