@@ -1,7 +1,7 @@
 #PA_HACER
 
 Programita para administrar ideas, cosas para hacer y huevadas similares ("tareas"), desde la consola.
-Permite agregar, agrupar en categorias, borrar (por categorias o por IDs), exportar y no mucho mas...
+Permite agregar, asignar y re-asignar prioridades, agrupar en categorias, borrar (por categorias o por IDs), exportar y no mucho mas...
 
 Todas las tareas van a parar al $HOME del usuario (quien obviamente usa Linux o algo
 por el estilo) dentro de un archivo llamado -no muy originalmente- *TODO.txt*.
@@ -45,6 +45,12 @@ que se encarga de todo.
 
 Sin embargo, alcanza con copiar el archivo PA_HACER.pl en alguna carpeta del $PATH.
 
+Pare desinstalar, es similar:
+
+```bash
+make
+```
+
 ## Customizar la cosa
 
 Puede ser una buena idea agregar algunos alias a la configuracion de shell, para facil acceso.
@@ -74,13 +80,13 @@ Como el unico que usa este "ekeko multitasking" soy yo, ninguno todavia.
 
 - Poner acentos en este archivo...
 - Agregar _Forma de Uso_.
-- Funcion para cambiar la prioridad de las tareas agregadas.
 - Ordenar las tareas por Prioridad, en vez de usar el ID.
 - Mejorar la salida, permitiendo descripciones mas largas.
 - [TAL VEZ] Agregar fechas, a.k.a "deathlines". 
 - [EN UNA DE ESAS] Mejorar el css del HTML que exporta.
 - [EN UNA DE ESAS && SI ME RE PINTA] agregar sincronizacion ftp.
 - [SI HICE TODO LO ANTERIOR] Empezar a cobrar un servicio de ftp syncing... jaja, nah.
+~~Funcion para cambiar la prioridad de las tareas agregadas.~~
 
 ## Licencia.
 
