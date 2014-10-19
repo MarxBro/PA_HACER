@@ -39,29 +39,47 @@ PA_HACER -X
 
 PA_HACER -B Prueba
 
+PA_HACER -p 9 -i 1
+
+=head2 Opciones
+
 =over
 
 =item B<-t>    Tarea - Descripcion o titulo de la tarea en si.
 
-=item B<-c>    Categoria - Las categorias sirven para agrupan tareas. [ prescindible ]
+=item B<-c>    Categoria - Las categorias agrupan tareas. [ prescindible ]
 
-=item B<-p>    Prioridad - La prioridad debiese ser numerica y entre 1-10. [ prescindible ]
+=item B<-p>    Prioridad - La prioridad debe ser numerica y entre 1-10. [ prescindible ]
 
 =item B<-B>    Borrar tarea/s - Permite eliminar tareas de la lista, por ID o CATEGORIA. [ excluyente ]
 
 =item B<-X>    Exportar la lista de tareas a HTML. [ excluyente ]
 
-=item B<-h>    (Esta) Ayuda.
+=item B<-p>    Priorizar : Toma un numero que sera asignado como nueva prioridad para la tarea con ID -i. [ Necesita -i]
 
-=item B<-n>    NUEVO archivo TODO.txt: Borra el viejo, cuidadito...
+=item B<-i>    ID de la tarea a priorizar. [ Necesita -p]
+
+=item B<-h>    (Esta) Ayuda. [excluyente]
+
+=item B<-n>    NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente]
 
 =item B<-d>    DEBUGGING FLAG!
 
 =back
 
+Los parametros presindibles toman valores por defecto ante su ausencia.
+
+Las opciones I<excluyentes> B<NO> se pueden combinar con otras.
+
+Las opciones B<-p> y B<-i> van siempre juntas.
+
+La prioridad por defecto es de B<6>.
+
+La categoria por defecto es B<Etc.>.
+
 =cut
 
-getopts( 't:c:p:B:Xnhd', \%opts );
+getopts( 'p:i:t:c:p:B:Xnhd', \%opts );
 if ( $opts{d} ) { $debug++ }
 
 # Variables necesarias
@@ -94,7 +112,8 @@ elsif ( $opts{n} ) {
 }
 elsif ( $opts{t} ) {
     agregar_tarea();
-# Mostrar la lista despuéde insertar la tarea.
+
+    # Mostrar la lista despuéde insertar la tarea.
     LISTAR_LARGO();
 }
 elsif ( $opts{B} ) {
@@ -102,6 +121,16 @@ elsif ( $opts{B} ) {
 }
 elsif ( $opts{X} ) {
     Exportartar();
+}
+elsif ( $opts{p} ) {
+    cambiar_prioridad( $opts{i}, $opts{p} );
+    # Mostrar la lista despuéde modificar la tarea.
+    LISTAR_LARGO();
+}
+elsif ( $opts{i} ) {
+    cambiar_prioridad( $opts{i}, $opts{p} );
+    # Mostrar la lista despuéde modificar la tarea.
+    LISTAR_LARGO();
 }
 else {
     if ($existia) {
@@ -285,8 +314,7 @@ sub Borrar_tarea {
         @lns_NEO = grep ( !/[\|]{3} $target [\|]{3}/, @lns_todo_file );
     }
     else {
-        Erro(
-"El argumento utilizado no es numerico ni un string valido. ERROR Y FINAL."
+        Erro( "El argumento utilizado no es numerico ni un string valido. ERROR Y FINAL."
         );
     }
 
@@ -338,6 +366,36 @@ sub Nuevo_archivo_input {
     say "Listo, creando uno nuevo...";
     Existencia();
     say "---";
+}
+
+# Funcion para cambiar la prioridad de una tarea preexistente.
+sub cambiar_prioridad {
+    my $id_pra_cambiar  = shift;
+    my $prior_final_pre = shift;
+    Erro("No se especifico el ID de la tarea a modificar. ERROR.")
+      unless $id_pra_cambiar;
+    Erro("No se especifico una PRIORIDAD nueva. ERROR.")
+      unless $prior_final_pre;
+    say $id_pra_cambiar, $prior_final_pre if $debug;
+    my $prior_final = $prior_final_pre;
+
+    my @lns_NEOnn = grep ( /^$id_pra_cambiar \|{3}/, @lns_todo_file );
+    my $ln_pre = $lns_NEOnn[0];
+    say $ln_pre if $debug;
+    Erro(
+"El ID de la tarea especificada para cambiar la prioridad, no existe. ERROR"
+    ) unless $ln_pre;
+
+    my @cps                    = split( / \|{3} /, $ln_pre );
+    my $prior_buscado          = $cps[2];
+    my $id_buscado             = $cps[0];
+    my ($id_buscado_pra_index) = $id_buscado;
+    say "ID PRA IN: $id_buscado_pra_index" if $debug;
+    my $ln_final = $ln_pre;
+    $ln_final =~ s/\|{3} $prior_buscado/\|\|\| $prior_final/g;
+
+    $lns_todo_file[ $id_buscado_pra_index - 1 ] = $ln_final;
+    write_file( "$archivo_input", @lns_todo_file );
 }
 
 =pod
