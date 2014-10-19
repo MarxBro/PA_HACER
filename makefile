@@ -1,6 +1,6 @@
 DESTINO_MANPAGE:=/usr/share/man/man1
-#DESTINO=/usr/local/bin
-DESTINO=/root/bin 
+DESTINO=/usr/local/bin
+#DESTINO=/root/bin 
 
 all: install doc
 
@@ -14,3 +14,9 @@ doc:
 clean: 
 	unlink $(DESTINO_MANPAGE)/T.1 && rm -f $(DESTINO_MANPAGE)/T.1
 	rm -f $(which PA_HACER.pl) $(DESTINO_MANPAGE)/PA_HACER.1 
+
+uninstall: clean
+
+borrar_todo_como_un_loco: uninstall
+
+# Zaijian!
