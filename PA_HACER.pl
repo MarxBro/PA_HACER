@@ -26,8 +26,7 @@ Script para llevar una lista de cosas para hacer.
 Permite agregar tareas, agruparlas en categorias, asignar y re-asignar prioridades, 
 borrar por ID o categorias completas y exportar todo a HTML.
 
-Sin opciones despliega una lista simple de cosas para hacer. Opcionalmente, con 
-el parametro B<l> muestra una lista tipo tabla.
+Sin opciones despliega una lista simple de cosas para hacer. 
 
 =head2 Forma de uso:
 
