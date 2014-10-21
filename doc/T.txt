@@ -1,0 +1,61 @@
+SYNOPSIS
+    Script para llevar una lista de cosas para hacer.
+
+    Permite agregar tareas, agruparlas en categorias, borrar por ID o
+    categorias completas y exportar todo a HTML.
+
+    Sin opciones despliega una lista simple de cosas para hacer.
+    Opcionalmente, con el parametro l muestra una lista tipo tabla.
+
+  Forma de uso:
+    PA_HACER -t Hola -c Prueba -p 1
+
+    PA_HACER
+
+    PA_HACER -X
+
+    PA_HACER -B Prueba
+
+    PA_HACER -p 9 -i 1
+
+  Opciones
+    -t Tarea - Descripcion o titulo de la tarea en si.
+    -c Categoria - Las categorias agrupan tareas. [ prescindible ]
+    -p Prioridad - La prioridad debe ser numerica y entre 1-10. [
+    prescindible ]
+    -B Borrar tarea/s - Permite eliminar tareas de la lista, por ID o
+    CATEGORIA. [ excluyente ]
+    -X Exportar la lista de tareas a HTML. [ excluyente ]
+    -p Priorizar : Toma un numero que sera asignado como nueva prioridad
+    para la tarea con ID -i. [ Necesita -i]
+    -i ID de la tarea a priorizar. [ Necesita -p]
+    -h (Esta) Ayuda. [excluyente]
+    -n NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente]
+    -d DEBUGGING FLAG!
+
+    Los parametros presindibles toman valores por defecto ante su ausencia.
+
+    Las opciones *excluyentes* NO se pueden combinar con otras.
+
+    Las opciones -p y -i van siempre juntas.
+
+    La prioridad por defecto es de 6.
+
+    La categoria por defecto es Etc..
+
+   TXT
+    Todo lo que este programita hace esta en un txt (asi que a editar antes
+    de programar innecesariamente).
+
+  Bugs y epilepsia.
+    Utiliza como separador de campos al string ' ||| ', asi que evitarlo en
+    la descripcion de las tareas... Nadie es tan extravagante, no? Ja!
+
+Autor y Licencia.
+    Programado por Marxbro aka Gstv, un lluvioso dia de Octubre del 2014.
+
+    Distribuir solo bajo la licencia WTFPL: *Do What the Fuck You Want To
+    Public License*.
+
+    Zaijian.
+
