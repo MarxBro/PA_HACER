@@ -2,4 +2,4 @@
 
 Organizador de cosas "pa' hacer"...
 
-Ver por [aca](httpxs://marxbro.github.io/PA_HACER/).
+Ver por aca: http://marxbro.github.io/PA_HACER/
