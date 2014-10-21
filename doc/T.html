@@ -1,18 +1,62 @@
-<p>SYNOPSIS Script para llevar una lista de cosas para hacer.</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Pa_hacer by MarxBro</title>
+  </head>
+
+<body>
+<h1>SYNOPSIS</h1> 
+<p>Script para llevar una lista de cosas para hacer.</p>
+
 <pre><code>Permite agregar tareas, agruparlas en categorias, borrar por ID o
 categorias completas y exportar todo a HTML.
 
 Sin opciones despliega una lista simple de cosas para hacer.
 Opcionalmente, con el parametro l muestra una lista tipo tabla.</code></pre>
-<p>Forma de uso: PA_HACER -t Hola -c Prueba -p 1</p>
+
+<h2>Forma de uso:</h2>
+
 <pre><code>PA_HACER
+
+PA_HACER -t Hola -c Prueba -p 1</p>
 
 PA_HACER -X
 
 PA_HACER -B Prueba
 
 PA_HACER -p 9 -i 1</code></pre>
-<p>Opciones -t Tarea - Descripcion o titulo de la tarea en si. -c Categoria - Las categorias agrupan tareas. [ prescindible ] -p Prioridad - La prioridad debe ser numerica y entre 1-10. [ prescindible ] -B Borrar tarea/s - Permite eliminar tareas de la lista, por ID o CATEGORIA. [ excluyente ] -X Exportar la lista de tareas a HTML. [ excluyente ] -p Priorizar : Toma un numero que sera asignado como nueva prioridad para la tarea con ID -i. [ Necesita -i] -i ID de la tarea a priorizar. [ Necesita -p] -h (Esta) Ayuda. [excluyente] -n NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente] -d DEBUGGING FLAG!</p>
+
+<h2>Opciones</h2>
+
+<ul>
+<li>-t Tarea - Descripcion o titulo de la tarea en si. </li>
+
+<li>-c Categoria - Las categorias agrupan tareas. [ prescindible ] </li>
+
+<li>-p Prioridad - La prioridad debe ser numerica y entre 1-10. [ prescindible ] </li>
+
+<li>-B Borrar tarea/s - Permite eliminar tareas de la lista, por ID o CATEGORIA. [ excluyente ] </li>
+
+<li>-X Exportar la lista de tareas a HTML. [ excluyente ] </li>
+
+<li>-p Priorizar : Toma un numero que sera asignado como nueva prioridad para la tarea con ID -i. [ Necesita -i] </li>
+
+<li>-i ID de la tarea a priorizar. [ Necesita -p] </li>
+
+<li>-h (Esta) Ayuda. [excluyente] </li>
+
+<li>-n NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente] </li>
+
+<li>-d DEBUGGING FLAG!</li>
+</ul>
+
 <pre><code>Los parametros presindibles toman valores por defecto ante su ausencia.
 
 Las opciones *excluyentes* NO se pueden combinar con otras.
@@ -22,10 +66,19 @@ Las opciones -p y -i van siempre juntas.
 La prioridad por defecto es de 6.
 
 La categoria por defecto es Etc..</code></pre>
-<p>TXT Todo lo que este programita hace esta en un txt (asi que a editar antes de programar innecesariamente).</p>
-<p>Bugs y epilepsia. Utiliza como separador de campos al string ' ||| ', asi que evitarlo en la descripcion de las tareas... Nadie es tan extravagante, no? Ja!</p>
-<p>Autor y Licencia. Programado por Marxbro aka Gstv, un lluvioso dia de Octubre del 2014.</p>
+
+<h2>TXT</h2> 
+<p>Todo lo que este programita hace esta en un txt (asi que a editar antes de programar innecesariamente).</p>
+
+<h2>Bugs y epilepsia.</h2>
+<p> Utiliza como separador de campos al string ' ||| ', asi que evitarlo en la descripcion de las tareas... Nadie es tan extravagante, no? Ja!</p>
+
+<h2>Autor y Licencia.</h2>
+<p> Programado por Marxbro aka Gstv, un lluvioso dia de Octubre del 2014.</p>
+
 <pre><code>Distribuir solo bajo la licencia WTFPL: *Do What the Fuck You Want To
 Public License*.
 
 Zaijian.</code></pre>
+</body>
+</html>
