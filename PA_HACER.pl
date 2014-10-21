@@ -23,8 +23,8 @@ my ( %opts, %QQ ) = ();
 
 Script para llevar una lista de cosas para hacer.
 
-Permite agregar tareas, agruparlas en categorias, borrar por ID o categorias
-completas y exportar todo a HTML.
+Permite agregar tareas, agruparlas en categorias, asignar y re-asignar prioridades, 
+borrar por ID o categorias completas y exportar todo a HTML.
 
 Sin opciones despliega una lista simple de cosas para hacer. Opcionalmente, con 
 el parametro B<l> muestra una lista tipo tabla.
@@ -124,11 +124,13 @@ elsif ( $opts{X} ) {
 }
 elsif ( $opts{p} ) {
     cambiar_prioridad( $opts{i}, $opts{p} );
+
     # Mostrar la lista despuéde modificar la tarea.
     LISTAR_LARGO();
 }
 elsif ( $opts{i} ) {
     cambiar_prioridad( $opts{i}, $opts{p} );
+
     # Mostrar la lista despuéde modificar la tarea.
     LISTAR_LARGO();
 }
@@ -211,9 +213,7 @@ sub agregar_tarea {
       . $TAREA_a_escribit . "\n";
     say " -- $ln_tarea_apnd --" if $debug;
 
-    # Mandar la linea al arrat como un campeon.
     push( @lns_todo_file, $ln_tarea_apnd );
-
     # Guardar archivo.
     Guardar_archivo($archivo_input);
 }
@@ -227,10 +227,7 @@ sub LISTAR_LARGO {
     print "\n", "-" x 84, "\n";
     foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
         for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
-
-            #print '| ' . "$QQ{$id_pr}[$el]", " |";
             if ( $el == 0 ) {
-
                 #Prioridad
                 my $prior         = $QQ{$id_pr}[$el];
                 my $prior_colorin = '';
@@ -254,14 +251,12 @@ sub LISTAR_LARGO {
                   '|';
             }
             elsif ( $el == 1 ) {
-
                 #Categoria
                 print colored( sprintf( " %-15s ", "$QQ{$id_pr}[$el]" ),
                     'bright_green  on_black' ),
                   '|';
             }
             elsif ( $el == 2 ) {
-
                 #TAREA
                 print colored( sprintf( " %-45s ", "$QQ{$id_pr}[$el]" ),
                     'bold  on_black' ),
@@ -285,7 +280,6 @@ sub Jerarquia {
         my ( $ID_a, $CAT_a, $PRIO_a, $TAREA_a ) = split( / [\|]{3} /, $ln );
         chomp($TAREA_a);    # IMPORTANTE!
         say $ID_a, $CAT_a, $PRIO_a, $TAREA_a if $debug;
-        ##  Hash of arrays baby...
         $QQ{$ID_a} = [ "$PRIO_a", "$CAT_a", "$TAREA_a", "$ID_a" ];
         say "$QQ{$ID_a}" if $debug;
     }
@@ -303,22 +297,18 @@ sub Borrar_tarea {
 
     if ( $target =~ m/\d+/ ) {
         $tipo = 'ID';
-
-        #borramos por ID.
         @lns_NEO = grep ( !/^$target/, @lns_todo_file );
     }
     elsif ( $target =~ m/\w+/ ) {
-
-        #borramos por Categoria.
         $tipo = 'CATEGORIA';
         @lns_NEO = grep ( !/[\|]{3} $target [\|]{3}/, @lns_todo_file );
     }
     else {
-        Erro( "El argumento utilizado no es numerico ni un string valido. ERROR Y FINAL."
+        Erro(
+"El argumento utilizado no es numerico ni un string valido. ERROR Y FINAL."
         );
     }
-
-    #CORREGIR IDs
+    #CORREGIR IDs -> super-paranoicamente!
     my $nnn = 1;
     foreach my $ln_txt_original (@lns_NEO) {
         $ln_txt_original =~ s/^\d+/$nnn/;
@@ -412,6 +402,7 @@ Nadie es tan extravagante, no? Ja!
 =head1 Autor y Licencia.
 
 Programado por B<Marxbro> aka B<Gstv>, un lluvioso dia de Octubre del 2014.
+La pagina esta hecha por la gracia de github y algunos retoques a priori.
 
 Distribuir solo bajo la licencia
 WTFPL: I<Do What the Fuck You Want To Public License>.
