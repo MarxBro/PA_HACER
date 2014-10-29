@@ -11,6 +11,7 @@ use File::Slurp;
 use feature "say";
 use Term::ANSIColor;
 use POSIX q/strftime/;
+use Data::Dumper;
 
 my $debug = 0;
 my ( %opts, %QQ ) = ();
@@ -58,11 +59,15 @@ PA_HACER -p 9 -i 1
 
 =item B<-i>    ID de la tarea a priorizar. [ Necesita -p]
 
-=item B<-h>    (Esta) Ayuda. [excluyente]
-
 =item B<-n>    NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente]
 
+=item B<-a>    ARCHIVAR - Backup del archivo TODO.txt actual. [excluyente]
+
+=item B<-r>    RESTAURAR - Permite restaurar algun backup y convertirlo en acutal. [excluyente] 
+
 =item B<-d>    DEBUGGING FLAG!
+
+=item B<-h>    (Esta) Ayuda. [excluyente]
 
 =back
 
@@ -78,13 +83,14 @@ La categoria por defecto es B<Etc.>.
 
 =cut
 
-getopts( 'p:i:t:c:p:B:Xnhd', \%opts );
+getopts( 'p:i:t:c:p:B:Xnhdar', \%opts );
 if ( $opts{d} ) { $debug++ }
 
 # Variables necesarias
 my $home          = $ENV{"HOME"};
 my $archivo_input = $home . '/' . "TODO.txt";
 my $existia       = 1;
+my $carpeta_pa_backup = $home . q|/.PA_HACER_backups|;
 Existencia();
 my $msg_archivo_recien_creado = "El archivo TODO.txt fue recreado.... 
         No hay tareas pendientes. FIN.";
@@ -112,7 +118,7 @@ elsif ( $opts{n} ) {
 elsif ( $opts{t} ) {
     agregar_tarea();
 
-    # Mostrar la lista despuéde insertar la tarea.
+    # Mostrar la lista después de insertar la tarea.
     LISTAR_LARGO();
 }
 elsif ( $opts{B} ) {
@@ -124,14 +130,24 @@ elsif ( $opts{X} ) {
 elsif ( $opts{p} ) {
     cambiar_prioridad( $opts{i}, $opts{p} );
 
-    # Mostrar la lista despuéde modificar la tarea.
+    # Mostrar la lista después de modificar la tarea.
     LISTAR_LARGO();
 }
 elsif ( $opts{i} ) {
     cambiar_prioridad( $opts{i}, $opts{p} );
 
-    # Mostrar la lista despuéde modificar la tarea.
+    # Mostrar la lista después de modificar la tarea.
     LISTAR_LARGO();
+}
+elsif ( $opts{a}){
+    Backup();
+    # Mostrar la lista después de copiar la lista de tareas. 
+    LISTAR_LARGO();
+}
+elsif ($opts{r}){
+    Restore();
+    # Mostrar la lista después de restaurarla. 
+    #LISTAR_LARGO();
 }
 else {
     if ($existia) {
@@ -387,11 +403,73 @@ sub cambiar_prioridad {
     write_file( "$archivo_input", @lns_todo_file );
 }
 
+sub Backup {
+    check_dir_backup();
+    # Escribir el backup y guardarlo.
+    my $nombre_backup = $carpeta_pa_backup .'/' . "TODO_backup_" . $t_banana . '.txt';
+    say $nombre_backup if $debug;
+    write_file("$nombre_backup",@lns_todo_file);
+}
+
+sub check_dir_backup {
+    # Chequear si existe la carpeta destino, si no existe crearla como un loco.
+    unless (-d $carpeta_pa_backup ){
+        #chdir $home; 
+        `mkdir -p $carpeta_pa_backup`;
+        say "Creado $carpeta_pa_backup" if $debug;
+        return 1;
+    }
+    return 0;
+}
+
+sub Restore {
+    my $st = check_dir_backup();
+    Erro("No hay archivos para Restaurar: la carpeta $carpeta_pa_backup no existia o estaba vacia. ERROR!") if $st;
+
+    opendir my $dir_bk, $carpeta_pa_backup;
+    my @backs_anteriores = grep (!/^[.]/, readdir($dir_bk));
+    closedir $dir_bk;
+
+    my $nro_bak_pra_menu = $#backs_anteriores + 1;
+    my $index_dummy = 0;
+    my %BBB =  map { $index_dummy++ => $_ } @backs_anteriores;
+    print Dumper (\%BBB) if $debug;
+
+    say "Elegir que archivo restaurar (Notar las fechas en los nombres):";
+# Mejorar este menu chiotto.
+    for my $kk_restaurar (sort { $a <=> $b }keys %BBB){
+        say "$kk_restaurar )- $BBB{$kk_restaurar}";
+    }
+    
+    my $in_us = <STDIN>;
+    say $in_us if $debug;
+    #exit;
+
+    say "Restaurando $BBB{$in_us}";
+# CHequear que exista la opcion y que este bien escrito.
+# Reemplazar todo.txt por el todo.txt real.
+    `cp $carpeta_pa_backup/$BBB{$in_us} $archivo_input;`
+}
+
+
+
 =pod
+
+=head3 Ejemplos: 
+
+Para insertar una tarea, alcanza con utilizar solamente la opcion B<-t>.
+
+PA_HACER -t Hola -c Prueba -p 1
+
+La opciones B<-c> y B<-p> no son obligatorias y asignan prioridad y categoria.
+
+La tarea es -en si misma- una descripcion, y conviene agruparlas en categorias para borrarlas mas facilmente.
+
+Las prioridades, a su vez, se pueden reasignar.
 
 =head3 TXT
 
-Todo lo que este programita hace esta en un txt (asi que a editar antes de programar innecesariamente).
+Todo lo que este programita hace esta en un archivo de texto plano (el viejo y querido I<txt>).
 
 =head2 Bugs y epilepsia.
 
