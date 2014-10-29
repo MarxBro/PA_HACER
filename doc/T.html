@@ -1,84 +1,147 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
-    <title>Pa_hacer by MarxBro</title>
-  </head>
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
 
 <body>
-<h1>SYNOPSIS</h1> 
-<p>Script para llevar una lista de cosas para hacer.</p>
 
-<pre><code>Permite agregar tareas, agruparlas en categorias, asignar y re-asignar prioridades, borrar por ID o
-categorias completas y exportar todo a HTML.
 
-Sin opciones despliega una lista simple de cosas para hacer.
-</code></pre>
 
-<h2>Forma de uso:</h2>
-
-<pre><code>PA_HACER
-
-PA_HACER -t Hola -c Prueba -p 1
-
-PA_HACER -X
-
-PA_HACER -B Prueba
-
-PA_HACER -p 9 -i 1</code></pre>
-
-<h2>Opciones</h2>
-
-<ul>
-<li>-t Tarea - Descripcion o titulo de la tarea en si. </li>
-
-<li>-c Categoria - Las categorias agrupan tareas. [ prescindible ] </li>
-
-<li>-p Prioridad - La prioridad debe ser numerica y entre 1-10. [ prescindible ] </li>
-
-<li>-B Borrar tarea/s - Permite eliminar tareas de la lista, por ID o CATEGORIA. [ excluyente ] </li>
-
-<li>-X Exportar la lista de tareas a HTML. [ excluyente ] </li>
-
-<li>-p Priorizar : Toma un numero que sera asignado como nueva prioridad para la tarea con ID -i. [ Necesita -i] </li>
-
-<li>-i ID de la tarea a priorizar. [ Necesita -p] </li>
-
-<li>-h (Esta) Ayuda. [excluyente] </li>
-
-<li>-n NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente] </li>
-
-<li>-d DEBUGGING FLAG!</li>
+<ul id="index">
+  <li><a href="#SYNOPSIS">SYNOPSIS</a>
+    <ul>
+      <li><a href="#Forma-de-uso">Forma de uso:</a></li>
+      <li><a href="#Opciones">Opciones</a>
+        <ul>
+          <li><a href="#Ejemplos">Ejemplos:</a></li>
+          <li><a href="#TXT">TXT</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugs-y-epilepsia">Bugs y epilepsia.</a></li>
+    </ul>
+  </li>
+  <li><a href="#Autor-y-Licencia">Autor y Licencia.</a></li>
 </ul>
 
-<pre><code>Los parametros presindibles toman valores por defecto ante su ausencia.
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-Las opciones *excluyentes* NO se pueden combinar con otras.
+<p>Script para llevar una lista de cosas para hacer.</p>
 
-Las opciones -p y -i van siempre juntas.
+<p>Permite agregar tareas, agruparlas en categorias, asignar y re-asignar prioridades, borrar por ID o categorias completas y exportar todo a HTML.</p>
 
-La prioridad por defecto es de 6.
+<p>Sin opciones despliega una lista simple de cosas para hacer.</p>
 
-La categoria por defecto es Etc..</code></pre>
+<h2 id="Forma-de-uso">Forma de uso:</h2>
 
-<h2>TXT</h2> 
-<p>Todo lo que este programita hace esta en un txt (asi que a editar antes de programar innecesariamente).</p>
+<p>PA_HACER -t Hola -c Prueba -p 1</p>
 
-<h2>Bugs y epilepsia.</h2>
-<p> Utiliza como separador de campos al string ' ||| ', asi que evitarlo en la descripcion de las tareas... Nadie es tan extravagante, no? Ja!</p>
+<p>PA_HACER</p>
 
-<h2>Autor y Licencia.</h2>
-<p> Programado por Marxbro aka Gstv, un lluvioso dia de Octubre del 2014.</p>
+<p>PA_HACER -X</p>
 
-<pre><code>Distribuir solo bajo la licencia WTFPL: *Do What the Fuck You Want To
-Public License*.
+<p>PA_HACER -B Prueba</p>
 
-Zaijian.</code></pre>
+<p>PA_HACER -p 9 -i 1</p>
+
+<h2 id="Opciones">Opciones</h2>
+
+<dl>
+
+<dt id="t-Tarea---Descripcion-o-titulo-de-la-tarea-en-si"><b>-t</b> Tarea - Descripcion o titulo de la tarea en si.</dt>
+<dd>
+
+</dd>
+<dt id="c-Categoria---Las-categorias-agrupan-tareas.-prescindible"><b>-c</b> Categoria - Las categorias agrupan tareas. [ prescindible ]</dt>
+<dd>
+
+</dd>
+<dt id="p-Prioridad---La-prioridad-debe-ser-numerica-y-entre-1-10.-prescindible"><b>-p</b> Prioridad - La prioridad debe ser numerica y entre 1-10. [ prescindible ]</dt>
+<dd>
+
+</dd>
+<dt id="B-Borrar-tarea-s---Permite-eliminar-tareas-de-la-lista-por-ID-o-CATEGORIA.-excluyente"><b>-B</b> Borrar tarea/s - Permite eliminar tareas de la lista, por ID o CATEGORIA. [ excluyente ]</dt>
+<dd>
+
+</dd>
+<dt id="X-Exportar-la-lista-de-tareas-a-HTML.-excluyente"><b>-X</b> Exportar la lista de tareas a HTML. [ excluyente ]</dt>
+<dd>
+
+</dd>
+<dt id="p-Priorizar-:-Toma-un-numero-que-sera-asignado-como-nueva-prioridad-para-la-tarea-con-ID--i.-Necesita--i"><b>-p</b> Priorizar : Toma un numero que sera asignado como nueva prioridad para la tarea con ID -i. [ Necesita -i]</dt>
+<dd>
+
+</dd>
+<dt id="i-ID-de-la-tarea-a-priorizar.-Necesita--p"><b>-i</b> ID de la tarea a priorizar. [ Necesita -p]</dt>
+<dd>
+
+</dd>
+<dt id="n-NUEVO-archivo-TODO.txt:-Borra-el-viejo-cuidadito...-excluyente"><b>-n</b> NUEVO archivo TODO.txt: Borra el viejo, cuidadito... [excluyente]</dt>
+<dd>
+
+</dd>
+<dt id="a-ARCHIVAR---Backup-del-archivo-TODO.txt-actual.-excluyente"><b>-a</b> ARCHIVAR - Backup del archivo TODO.txt actual. [excluyente]</dt>
+<dd>
+
+</dd>
+<dt id="r-RESTAURAR---Permite-restaurar-algun-backup-y-convertirlo-en-acutal.-excluyente"><b>-r</b> RESTAURAR - Permite restaurar algun backup y convertirlo en acutal. [excluyente]</dt>
+<dd>
+
+</dd>
+<dt id="d-DEBUGGING-FLAG"><b>-d</b> DEBUGGING FLAG!</dt>
+<dd>
+
+</dd>
+<dt id="h-Esta-Ayuda.-excluyente"><b>-h</b> (Esta) Ayuda. [excluyente]</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>Los parametros presindibles toman valores por defecto ante su ausencia.</p>
+
+<p>Las opciones <i>excluyentes</i> <b>NO</b> se pueden combinar con otras.</p>
+
+<p>Las opciones <b>-p</b> y <b>-i</b> van siempre juntas.</p>
+
+<p>La prioridad por defecto es de <b>6</b>.</p>
+
+<p>La categoria por defecto es <b>Etc.</b>.</p>
+
+<h3 id="Ejemplos">Ejemplos:</h3>
+
+<p>Para insertar una tarea, alcanza con utilizar solamente la opcion <b>-t</b>.</p>
+
+<p>PA_HACER -t Hola -c Prueba -p 1</p>
+
+<p>La opciones <b>-c</b> y <b>-p</b> no son obligatorias y asignan prioridad y categoria.</p>
+
+<p>La tarea es -en si misma- una descripcion, y conviene agruparlas en categorias para borrarlas mas facilmente.</p>
+
+<p>Las prioridades, a su vez, se pueden reasignar.</p>
+
+<h3 id="TXT">TXT</h3>
+
+<p>Todo lo que este programita hace esta en un archivo de texto plano (el viejo y querido <i>txt</i>).</p>
+
+<h2 id="Bugs-y-epilepsia">Bugs y epilepsia.</h2>
+
+<p>Utiliza como separador de campos al string &#39; ||| &#39;, asi que evitarlo en la descripcion de las tareas... Nadie es tan extravagante, no? Ja!</p>
+
+<h1 id="Autor-y-Licencia">Autor y Licencia.</h1>
+
+<p>Programado por <b>Marxbro</b> aka <b>Gstv</b>, un lluvioso dia de Octubre del 2014. La pagina esta hecha por la gracia de github y algunos retoques a priori.</p>
+
+<p>Distribuir solo bajo la licencia WTFPL: <i>Do What the Fuck You Want To Public License</i>.</p>
+
+<p>Zaijian.</p>
+
+
 </body>
+
 </html>
+
+
