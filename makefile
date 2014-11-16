@@ -1,6 +1,6 @@
 DESTINO_MANPAGE:=/usr/share/man/man1
-#DESTINO=/usr/local/bin
-DESTINO=/root/bin 
+DESTINO=/usr/local/bin
+#DESTINO=/root/bin 
 
 all: install doc
 

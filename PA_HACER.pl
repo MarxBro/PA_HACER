@@ -87,9 +87,9 @@ getopts( 'p:i:t:c:p:B:Xnhdar', \%opts );
 if ( $opts{d} ) { $debug++ }
 
 # Variables necesarias
-my $home          = $ENV{"HOME"};
-my $archivo_input = $home . '/' . "TODO.txt";
-my $existia       = 1;
+my $home              = $ENV{"HOME"};
+my $archivo_input     = $home . '/' . "TODO.txt";
+my $existia           = 1;
 my $carpeta_pa_backup = $home . q|/.PA_HACER_backups|;
 Existencia();
 my $msg_archivo_recien_creado = "El archivo TODO.txt fue recreado.... 
@@ -101,8 +101,9 @@ my @lns_todo_file = read_file("$archivo_input");
 my $CATEGORIA_defaut  = 'Etc.';
 my $PRIORIDAD_default = 6;
 
-my $separador_campos_tareas = ' ||| ';
-my $separador               = $separador_campos_tareas;
+my $separador_campos_tareas     = ' ||| ';
+my $separador                   = $separador_campos_tareas;
+my $separador_campos_tareas_RGX = ' [\|]{3} ';
 my $t_banana = strftime( "%d_%B_%Y_%H_%M_%S", localtime( time() ) );
 
 ######################################################################
@@ -117,8 +118,6 @@ elsif ( $opts{n} ) {
 }
 elsif ( $opts{t} ) {
     agregar_tarea();
-
-    # Mostrar la lista después de insertar la tarea.
     LISTAR_LARGO();
 }
 elsif ( $opts{B} ) {
@@ -129,25 +128,18 @@ elsif ( $opts{X} ) {
 }
 elsif ( $opts{p} ) {
     cambiar_prioridad( $opts{i}, $opts{p} );
-
-    # Mostrar la lista después de modificar la tarea.
     LISTAR_LARGO();
 }
 elsif ( $opts{i} ) {
     cambiar_prioridad( $opts{i}, $opts{p} );
-
-    # Mostrar la lista después de modificar la tarea.
     LISTAR_LARGO();
 }
-elsif ( $opts{a}){
+elsif ( $opts{a} ) {
     Backup();
-    # Mostrar la lista después de copiar la lista de tareas. 
     LISTAR_LARGO();
 }
-elsif ($opts{r}){
+elsif ( $opts{r} ) {
     Restore();
-    # Mostrar la lista después de restaurarla. 
-    #LISTAR_LARGO();
 }
 else {
     if ($existia) {
@@ -173,8 +165,6 @@ sub ayudas {
 }
 
 sub Existencia {
-
-    # chequea que el arhcivo input exista, sino lo crea.
     unless ( -e $archivo_input ) {
         $existia--;
         `touch $archivo_input`;
@@ -185,9 +175,10 @@ sub Existencia {
 sub last_line {
     my $last_line_l = $lns_todo_file[-1];
     say $last_line_l if $debug;
-    my @campos_last_line = split( /$separador_campos_tareas/, $last_line_l );
+    my @campos_last_line =
+      split( /$separador_campos_tareas_RGX/, $last_line_l );
     my $gh = $campos_last_line[0];
-    say $gh if $debug;
+    say "El ult ID ---> $gh" if $debug;
     return $gh;
 }
 
@@ -200,7 +191,6 @@ sub agregar_tarea {
     my $TAREA_a_escribit = $opts{t};    # Tiene que haber algo ahi!
 
     # chequear si se pasaron categoria y prioridad al script;
-    # sino, usar defaults.
     my ( $CATEGORIA_a_escribir, $PRIORIDAD_a_escribir );
 
     if ( $opts{c} ) {
@@ -229,6 +219,7 @@ sub agregar_tarea {
     say " -- $ln_tarea_apnd --" if $debug;
 
     push( @lns_todo_file, $ln_tarea_apnd );
+
     # Guardar archivo.
     Guardar_archivo($archivo_input);
 }
@@ -243,6 +234,7 @@ sub LISTAR_LARGO {
     foreach my $id_pr ( sort { $a <=> $b } keys %QQ ) {
         for my $el ( 0 .. $#{ $QQ{$id_pr} } ) {
             if ( $el == 0 ) {
+
                 #Prioridad
                 my $prior         = $QQ{$id_pr}[$el];
                 my $prior_colorin = '';
@@ -266,12 +258,14 @@ sub LISTAR_LARGO {
                   '|';
             }
             elsif ( $el == 1 ) {
+
                 #Categoria
                 print colored( sprintf( " %-15s ", "$QQ{$id_pr}[$el]" ),
                     'bright_green  on_black' ),
                   '|';
             }
             elsif ( $el == 2 ) {
+
                 #TAREA
                 print colored( sprintf( " %-45s ", "$QQ{$id_pr}[$el]" ),
                     'bold  on_black' ),
@@ -292,7 +286,8 @@ sub LISTAR_LARGO {
 
 sub Jerarquia {
     foreach my $ln (@lns_todo_file) {
-        my ( $ID_a, $CAT_a, $PRIO_a, $TAREA_a ) = split( / [\|]{3} /, $ln );
+        my ( $ID_a, $CAT_a, $PRIO_a, $TAREA_a ) =
+          split( /$separador_campos_tareas_RGX/, $ln );
         chomp($TAREA_a);    # IMPORTANTE!
         say $ID_a, $CAT_a, $PRIO_a, $TAREA_a if $debug;
         $QQ{$ID_a} = [ "$PRIO_a", "$CAT_a", "$TAREA_a", "$ID_a" ];
@@ -323,6 +318,7 @@ sub Borrar_tarea {
 "El argumento utilizado no es numerico ni un string valido. ERROR Y FINAL."
         );
     }
+
     #CORREGIR IDs -> super-paranoicamente!
     my $nnn = 1;
     foreach my $ln_txt_original (@lns_NEO) {
@@ -405,16 +401,20 @@ sub cambiar_prioridad {
 
 sub Backup {
     check_dir_backup();
+
     # Escribir el backup y guardarlo.
-    my $nombre_backup = $carpeta_pa_backup .'/' . "TODO_backup_" . $t_banana . '.txt';
+    my $nombre_backup =
+      $carpeta_pa_backup . '/' . "TODO_backup_" . $t_banana . '.txt';
     say $nombre_backup if $debug;
-    write_file("$nombre_backup",@lns_todo_file);
+    write_file( "$nombre_backup", @lns_todo_file );
 }
 
 sub check_dir_backup {
+
     # Chequear si existe la carpeta destino, si no existe crearla como un loco.
-    unless (-d $carpeta_pa_backup ){
-        #chdir $home; 
+    unless ( -d $carpeta_pa_backup ) {
+
+        #chdir $home;
         `mkdir -p $carpeta_pa_backup`;
         say "Creado $carpeta_pa_backup" if $debug;
         return 1;
@@ -424,34 +424,37 @@ sub check_dir_backup {
 
 sub Restore {
     my $st = check_dir_backup();
-    Erro("No hay archivos para Restaurar: la carpeta $carpeta_pa_backup no existia o estaba vacia. ERROR!") if $st;
+    Erro(
+"No hay archivos para Restaurar: la carpeta $carpeta_pa_backup no existia o estaba vacia. ERROR!"
+    ) if $st;
 
     opendir my $dir_bk, $carpeta_pa_backup;
-    my @backs_anteriores = grep (!/^[.]/, readdir($dir_bk));
+    my @backs_anteriores = grep ( !/^[.]/, readdir($dir_bk) );
     closedir $dir_bk;
 
     my $nro_bak_pra_menu = $#backs_anteriores + 1;
-    my $index_dummy = 0;
-    my %BBB =  map { $index_dummy++ => $_ } @backs_anteriores;
-    print Dumper (\%BBB) if $debug;
+    my $index_dummy      = 0;
+    my %BBB              = map { $index_dummy++ => $_ } @backs_anteriores;
+    print Dumper ( \%BBB ) if $debug;
 
     say "Elegir que archivo restaurar (Notar las fechas en los nombres):";
-# Mejorar este menu chiotto.
-    for my $kk_restaurar (sort { $a <=> $b }keys %BBB){
+
+    # Mejorar este menu chiotto.
+    for my $kk_restaurar ( sort { $a <=> $b } keys %BBB ) {
         say "$kk_restaurar )- $BBB{$kk_restaurar}";
     }
-    
+
     my $in_us = <STDIN>;
     say $in_us if $debug;
+
     #exit;
 
     say "Restaurando $BBB{$in_us}";
-# CHequear que exista la opcion y que este bien escrito.
-# Reemplazar todo.txt por el todo.txt real.
-    `cp $carpeta_pa_backup/$BBB{$in_us} $archivo_input;`
+
+    # CHequear que exista la opcion y que este bien escrito.
+    # Reemplazar todo.txt por el todo.txt real.
+    `cp $carpeta_pa_backup/$BBB{$in_us} $archivo_input;`;
 }
-
-
 
 =pod
 
@@ -474,11 +477,15 @@ Todo lo que este programita hace esta en un archivo de texto plano (el viejo y q
 =head2 Bugs y epilepsia.
 
 Utiliza como separador de campos al string ' ||| ', asi que evitarlo en la descripcion de las tareas...
-Nadie es tan extravagante, no? Ja!
+
+Arregle algunos bugs que fueron apareciendo, favor de avisarme si aparecen mas.
+
+Probablemente haya muchisimos.
 
 =head1 Autor y Licencia.
 
 Programado por B<Marxbro> aka B<Gstv>, un lluvioso dia de Octubre del 2014.
+Retocado mil veces hasta Noviembre, agregando cosas que me parecian utiles y sacando errores.
 La pagina esta hecha por la gracia de github y algunos retoques a priori.
 
 Distribuir solo bajo la licencia
