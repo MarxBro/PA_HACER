@@ -83,8 +83,11 @@ La categoria por defecto es B<Etc.>.
 
 =cut
 
+
+# Procesar la entrada.
+
 getopts( 'p:i:t:c:p:B:Xnhdar', \%opts );
-if ( $opts{d} ) { $debug++ }
+$debug++ if $opts{d};
 
 # Variables necesarias
 my $home              = $ENV{"HOME"};
@@ -105,6 +108,32 @@ my $separador_campos_tareas     = ' ||| ';
 my $separador                   = $separador_campos_tareas;
 my $separador_campos_tareas_RGX = ' [\|]{3} ';
 my $t_banana = strftime( "%d_%B_%Y_%H_%M_%S", localtime( time() ) );
+
+######################################################################
+# COLORES
+######################################################################
+my $term_valor = $ENV{'TERM'};
+my ( $rojo, $amarillo, $verde, $blanco, $negro );
+
+if ( $term_valor =~ m/xterm$|vt100$|linux$|rxvt$|urxvt$|aterm$/gi ) {
+
+#i Declarar la variables de colores de forma saludable para las terminales menos felices.
+    $rojo     = 'red';
+    $amarillo = 'yellow';
+    $verde    = 'green';
+    $blanco   = ' ';          # Algunas terminales no soportan bold?
+    $negro    = 'on_black';
+}
+else {
+    # Pirotecnia.
+    $rojo     = 'bright_red';
+    $amarillo = 'bright_yellow';
+    $verde    = 'bright_green';
+    $blanco   = 'bold';
+    $negro    = 'on_black';
+}
+
+say $rojo, $amarillo, $verde, $blanco, $negro if $debug;
 
 ######################################################################
 # Cod. ppal.
@@ -239,16 +268,16 @@ sub LISTAR_LARGO {
                 my $prior         = $QQ{$id_pr}[$el];
                 my $prior_colorin = '';
                 if ( $prior >= 8 ) {
-                    $prior_colorin = "bright_red on_black";
+                    $prior_colorin = "$rojo $negro";
                 }
                 elsif ( $prior >= 5 ) {
-                    $prior_colorin = "bright_yellow on_black";
+                    $prior_colorin = "$amarillo $negro";
                 }
                 elsif ( $prior >= 3 ) {
-                    $prior_colorin = "bold on_black";
+                    $prior_colorin = "$blanco $negro";
                 }
                 else {
-                    $prior_colorin = "on_black";
+                    $prior_colorin = "$negro";
                 }
                 print '|',
                   colored(
@@ -261,19 +290,19 @@ sub LISTAR_LARGO {
 
                 #Categoria
                 print colored( sprintf( " %-15s ", "$QQ{$id_pr}[$el]" ),
-                    'bright_green  on_black' ),
+                    "$verde  $negro" ),
                   '|';
             }
             elsif ( $el == 2 ) {
 
                 #TAREA
                 print colored( sprintf( " %-45s ", "$QQ{$id_pr}[$el]" ),
-                    'bold  on_black' ),
+                    "$blanco  $negro" ),
                   '|';
             }
             elsif ( $el == 3 ) {
                 print colored( sprintf( " %-7d ", "$QQ{$id_pr}[$el]" ),
-                    'bright_green on_black' ),
+                    "$verde $negro" ),
                   '|';
             }
             else {
